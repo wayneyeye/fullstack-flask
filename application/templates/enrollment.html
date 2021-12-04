@@ -1,0 +1,32 @@
+    {% extends "layout.html" %}
+    
+    {% block content %}
+    <h1>Enrollment</h1>
+
+    <!--  Display the Term and Year here --->
+    <h3>You have enrolled in the course!</h3>
+
+    <div>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Course ID</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Credits</th>
+                <th scope="col">Term</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td scope='row'>{{ data["courseID"] }}</td>
+                <td>{{ data["title"] }}</td>
+                <td>{{ data["description"] }}</td>
+                <td>{{ data["credits"] }}</td>
+                <td>{{ data["term"] }}</td>
+            </tr>     
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
