@@ -1,4 +1,5 @@
 from application import app
+from application.fileserver import getFolder
 from flask import render_template,Response,request
 import json
 # all routes are defined here
@@ -20,6 +21,13 @@ def courses(term="Spring 2019"):
 @app.route("/register")
 def register():
     return render_template("register.html",register=True)
+
+@app.route("/fileserver")
+@app.route('/fileserver/<path:path>')
+def fileserver(path=''):
+    path=path or './'
+    print("path=",path)
+    return render_template("fileserver.html",fileData=getFolder(path),path=path,fileserver=True)
 
 @app.route("/enrollment",methods=["GET","POST"])
 def enrollment():
