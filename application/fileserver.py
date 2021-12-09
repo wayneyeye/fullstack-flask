@@ -6,6 +6,7 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 def upload_file(path,file):
+    print("current path "+os.getcwd())
     print("save to "+safe_join(path,file.filename))
     file.save(safe_join(path,file.filename))
 def delete_file(path,file):
