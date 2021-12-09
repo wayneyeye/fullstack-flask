@@ -14,6 +14,7 @@
             <th scope="col">Last Modified</th>
             <th scope="col">Size(in Bytes)</th>
             <th scope="col"></th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
@@ -28,15 +29,26 @@
             {% endif %}
             <td>{{ data['mtime'] }}</td>
             <td>{{ data['size'] }}</td>
+            {% if not data['dir'] %}
             <td>
-                {% if not data['dir'] %}
                 <!-- <form method="post" action="{{ url_for(request.endpoint) }}{{ realpath }}"> -->
                 <form method="post" >
                     <input type="hidden" name="download" value="{{ data['fullname'] }}">
                     <button>⬇</button>
                 </form>
-                {% endif %}
             </td>
+            <td>
+                <form method="post" >
+                    <input type="hidden" name="delete" value="{{ data['fullname'] }}">
+                    <button>❌</button>
+                </form>
+            </td>
+            {% else %}
+            <td>
+            </td>
+            <td>
+            </td>
+            {% endif %}
         </tr>
         {% endfor %}
         <td></td>
@@ -47,6 +59,7 @@
             <td><input type="file" name="upload"></td>
             <td><input type=submit value="⬆"></td>
         </form>
+        <td></td>
         </tbody>
     </table>
 </div>

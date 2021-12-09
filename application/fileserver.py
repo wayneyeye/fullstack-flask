@@ -8,6 +8,10 @@ def allowed_file(filename):
 def upload_file(path,file):
     print("save to "+safe_join(path,file.filename))
     file.save(safe_join(path,file.filename))
+def delete_file(path,file):
+    print("current path "+os.getcwd())
+    print("delete file "+file)
+    os.remove(file)
 def getFolder(path='./'):
     list = os.listdir(path)
     list.sort(key=lambda a: a)

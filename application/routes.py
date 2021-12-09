@@ -1,7 +1,7 @@
 from flask.helpers import send_from_directory, url_for
 from werkzeug.utils import redirect, secure_filename
 from application import app
-from application.fileserver import getFolder,allowed_file,ALLOWED_EXTENSIONS, upload_file
+from application.fileserver import getFolder,allowed_file,ALLOWED_EXTENSIONS, upload_file,delete_file
 from flask import render_template,Response,request,send_from_directory,flash
 import json
 # all routes are defined here
@@ -34,6 +34,11 @@ def fileserver(path=''):
         print("FILE DOWNLOAD REQUEST: "+app.config["UPLOAD_FOLDER"]+' '+request.form.get("download"))
         # add ../ as this script is in the application folder
         return send_from_directory(app.config["UPLOAD_FOLDER"],request.form.get("download"))
+    if request.form.get("delete"):
+        print("FILE DELETE REQUEST: "+app.config["UPLOAD_FOLDER"]+request.form.get("delete"))
+        delete_file(app.config["UPLOAD_FOLDER"],request.form.get("delete"))
+        # add ../ as this script is in the application folder
+        return redirect(url_for('fileserver')+'/'+realpath)
     if request.files.get("upload"):
         file=request.files.get("upload")
         print("UPLOAD "+file.filename)
