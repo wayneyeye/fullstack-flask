@@ -6,20 +6,22 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 def upload_file(path,file):
-    print("current path "+os.getcwd())
-    print("save to "+safe_join(path,file.filename))
+    # print("current path "+os.getcwd())
+    # print("save to "+safe_join(path,file.filename))
     file.save(safe_join(path,file.filename))
-def delete_file(path,file):
-    print("current path "+os.getcwd())
-    print("delete file "+file)
+def delete_file(file):
+    # print("current path "+os.getcwd())
+    # print("delete file "+file)
     os.remove(file)
-def getFolder(path='./'):
+def getFolder(path='./',relative_path=''):
     list = os.listdir(path)
     list.sort(key=lambda a: a)
     data=[]
     for name in list:
         fullname = safe_join('' if path=='./' else path, name)
-        displayname = linkname = name
+        displayname = name
+        linkname = relative_path+name
+        # print("linkname = "+ linkname)
         # Append / for directories or @ for symbolic links
         if os.path.isdir(fullname):
             displayname = name + "/"

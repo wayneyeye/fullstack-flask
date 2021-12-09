@@ -32,13 +32,13 @@
             {% if not data['dir'] %}
             <td>
                 <form method="post" >
-                    <input type="hidden" name="download" value="{{ data['fullname'] }}">
+                    <input type="hidden" name="download" value="{{ data['linkname'] }}">
                     <button>⬇</button>
                 </form>
             </td>
             <td>
                 <form method="post" >
-                    <input type="hidden" name="delete" value="{{ data['fullname'] }}">
+                    <input type="hidden" name="delete" value="{{ data['linkname'] }}">
                     <button>❌</button>
                 </form>
             </td>
