@@ -1,11 +1,19 @@
 import os
 from datetime import datetime
+from flask import safe_join
+ALLOWED_EXTENSIONS=['py','yaml','yml']
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+def upload_file(path,file):
+    print("save to "+safe_join(path,file.filename))
+    file.save(safe_join(path,file.filename))
 def getFolder(path='./'):
     list = os.listdir(path)
     list.sort(key=lambda a: a)
     data=[]
     for name in list:
-        fullname = os.path.join(path, name)
+        fullname = safe_join('' if path=='./' else path, name)
         displayname = linkname = name
         # Append / for directories or @ for symbolic links
         if os.path.isdir(fullname):
