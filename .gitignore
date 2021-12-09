@@ -1,4 +1,8 @@
 **/__pycache__/
 example/
 **/.DS_Store
+<<<<<<< HEAD
 venv/
+=======
+venv/
+>>>>>>> fileserver

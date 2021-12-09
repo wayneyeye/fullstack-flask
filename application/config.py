@@ -15,4 +15,4 @@ class Config():
          ProvisionedThroughput=dict(ReadCapacityUnits=5, WriteCapacityUnits=5)
     )
 ]
-     
+    SERVING_FOLDER=os.getcwd()
