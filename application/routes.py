@@ -38,7 +38,7 @@ def fileserver(path=''):
         print("FILE DELETE REQUEST: "+app.config["UPLOAD_FOLDER"]+request.form.get("delete"))
         delete_file(app.config["UPLOAD_FOLDER"],request.form.get("delete"))
         # add ../ as this script is in the application folder
-        return redirect(url_for('fileserver')+'/'+realpath)
+        return redirect(url_for('fileserver')+'/'+path)
     if request.files.get("upload"):
         file=request.files.get("upload")
         print("UPLOAD "+file.filename)
@@ -46,12 +46,12 @@ def fileserver(path=''):
             filename = secure_filename(file.filename)
             print("FILE UPLOAD ALLOWED: "+app.config["UPLOAD_FOLDER"]+ path +' '+filename)
             upload_file(path,file)
-            return redirect(url_for('fileserver')+'/'+realpath)
+            return redirect(url_for('fileserver')+'/'+path)
         else:
             flash(request.files.get("upload").filename+" is not in "+','.join(ALLOWED_EXTENSIONS))
-            return redirect(url_for('fileserver')+'/'+realpath)
+            return redirect(url_for('fileserver')+'/'+path)
     else:
-        return render_template("fileserver.html",fileData=getFolder(path),path=path,realpath=realpath,fileserver=True)
+        return render_template("fileserver.html",fileData=getFolder(path),path=path,fileserver=True)
 
 @app.route("/enrollment",methods=["GET","POST"])
 def enrollment():
