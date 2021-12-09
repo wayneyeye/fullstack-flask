@@ -25,6 +25,12 @@ def courses(term="Spring 2019"):
 def register():
     return render_template("register.html",register=True)
 
+@app.route("/confirm",methods=["POST","GET"])
+def confirm():
+    args=request.form
+    print(args)
+    return render_template("confirm.html",data=args)
+
 @app.route("/fileserver",methods=["GET","POST"], strict_slashes=False)
 @app.route('/fileserver/<path:path>',methods=["GET","POST"])
 def fileserver(path=''):

@@ -37,7 +37,10 @@
                 </form>
             </td>
             <td>
-                <form method="post" >
+                <form method="post" action="{{ url_for('confirm') }}">
+                    <input type="hidden" name="confirm_message" value="Please confirm the deletion of">
+                    <input type="hidden" name="sub_message" value="{{ data['displayname'] }}">
+                    <input type="hidden" name="callback_url" value="{{ url_for(request.endpoint) }}">
                     <input type="hidden" name="delete" value="{{ data['linkname'] }}">
                     <button>❌</button>
                 </form>
