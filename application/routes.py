@@ -31,6 +31,35 @@ def workflows():
         {'title':'Airflow-Preprod','link':'https://dw-clsfd.com/airflow-preprod'},
         {'title':'Airflow-Testing','link':'https://dw-clsfd.com/airflow-testing'}])
 
+@app.route("/batch")
+def batch():
+    return render_template("workflows.html",batch=True,data=[
+        {'title':'Airflow-Preprod','link':'https://dw-clsfd.com/airflow-preprod'},
+        {'title':'Airflow-Testing','link':'https://dw-clsfd.com/airflow-testing'}])
+
+@app.route("/knowledge")
+def knowledge():
+    return render_template("workflows.html",knowledge=True,data=[
+        {'title':'Airflow-Preprod','link':'https://dw-clsfd.com/airflow-preprod'},
+        {'title':'Airflow-Testing','link':'https://dw-clsfd.com/airflow-testing'}])
+
+@app.route("/source")
+def source():
+    return render_template("workflows.html",source=True,data=[
+        {'title':'Airflow-Preprod','link':'https://dw-clsfd.com/airflow-preprod'},
+        {'title':'Airflow-Testing','link':'https://dw-clsfd.com/airflow-testing'}])
+
+@app.route("/monitor")
+def monitor():
+    return render_template("workflows.html",monitor=True,data=[
+        {'title':'Airflow-Preprod','link':'https://dw-clsfd.com/airflow-preprod'},
+        {'title':'Airflow-Testing','link':'https://dw-clsfd.com/airflow-testing'}])
+
+@app.route("/migration")
+def migration():
+    return render_template("workflows.html",migration=True,data=[
+        {'title':'Airflow-Preprod','link':'https://dw-clsfd.com/airflow-preprod'},
+        {'title':'Airflow-Testing','link':'https://dw-clsfd.com/airflow-testing'}])
 
 @app.route("/confirm",methods=["POST","GET"])
 def confirm():
