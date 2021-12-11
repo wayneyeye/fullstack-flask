@@ -1,12 +1,19 @@
-    <header>
-        <nav>
-            <ul class="nav nav-pills">
-                <li class="nav-item"><a href="{{ url_for('index') }}" class="nav-link {% if index %}active{% endif %}">Home</a></li>
-                <li class="nav-item"><a href="{{ url_for('courses') }}" class="nav-link {% if courses %}active{% endif %}">Classes</a></li>
-                <li class="nav-item"><a href="{{ url_for('register') }}" class="nav-link {% if register %}active{% endif %}">Register</a></li>
-                <li class="nav-item"><a href="{{ url_for('login') }}" class="nav-link {% if login %}active{% endif %}">Login</a></li>
-                <li class="nav-item"><a href="{{ url_for('fileserver') }}" class="nav-link {% if fileserver %}active{% endif %}">FTP</a></li>
-            </ul>
+    <div class="l-navbar" id="nav-bar">
+        <nav class="nav">
+                <div> 
+                    <a href="#" class="nav_logo"> <i class='bx bx-data nav_logo-icon'></i> <span class="nav_logo-name">Global DWH</span></a>
+                    <div class="nav_list"> 
+                        <a href="{{ url_for('index') }}" class="nav_link {% if index %}active{% endif %}"> <i class='bx bx-home nav_icon'></i> <span class="nav_name">Home</span> </a> 
+                        <a href="{{ url_for('register') }}" class="nav_link {% if register %}active{% endif %}"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Register</span> </a>
+                        <a href="{{ url_for('login') }}" class="nav_link {% if login %}active{% endif %}"> <i class='bx bx-log-in nav_icon'></i> <span class="nav_name">Login</span> </a>
+                        <a href="{{ url_for('courses') }}" class="nav_link {% if courses %}active{% endif %}"> <i class='bx bx-spreadsheet nav_icon'></i> <span class="nav_name">Courses</span> </a> 
+                        <a href="{{ url_for('fileserver') }}" class="nav_link {% if fileserver %}active{% endif %}"> <i class='bx bx-folder nav_icon'></i> <span class="nav_name">FTP</span> </a>
+                    </div>
+                </div> 
+                    <a href="#" class="nav_link"> 
+                        <i class='bx bx-log-out nav_icon'></i> 
+                        <span class="nav_name">SignOut</span> 
+                    </a>
         </nav>
-        <hr style="clear:both">
-    </header>
+    </div>
+    
