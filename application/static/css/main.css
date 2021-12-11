@@ -9,14 +9,42 @@
 
 html,
 body {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     height: 100%;
+    min-height: 100%;
     position: relative;
     margin:0px;
+    padding: 0;
+    }
+    @media screen and (max-width:768px) {
+        * { font-size: small; word-wrap:normal;}
+      }
+.hidder {
+    width: 100%; 
+  }
+  @media screen and (max-width:1280px) {
+    .table td { font-size: small; word-wrap:normal;}
+  }
+  @media screen and (max-width:768px) {
+    .tohide { display: none; }
+    .table td, input, button { font-size: xx-small; word-wrap:normal;}
+  }
+.table-wrapper {
+    width: 100%;
+}
+
+.table tr,.table td, .table th{
+    padding: 0.1rem;
+    text-align: left;
 }
 
 header {
     text-align: center;
+}
+
+.responsive {
+    max-width: 250px;
+    height: auto;
 }
 
 li {
@@ -55,7 +83,7 @@ input[type=text]:focus, input[type=password]:focus {
 }
 
 .top-container {
-    background: #ccc;
+    background: rgb(240, 240, 240);
     padding:5px;
     border-bottom:2px solid #0f0f0f;
 }
@@ -63,9 +91,11 @@ input[type=text]:focus, input[type=password]:focus {
     background: #333;
     padding:5px;
     border-top:2px solid #0f0f0f;
-    position:sticky;
     bottom:0;
-    top: calc( 100vh - 50px );
+    height: 80px;
+    position: sticky; 
+    margin-top: 50px;
+    top: calc( 100vh - 80px );
 }
 
 .container-term {
@@ -84,16 +114,19 @@ footer {
 }
 
 .btn-submit {
-    font-weight: normal;
-    font-size: x-small;
-    padding: 1px 1px 1px 1px;
-    margin: 1px 1px 1px 1px;
+    background-color: cornflowerblue;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
     border: none;
     cursor: pointer;
     width: 100%;
-    opacity: 0.6;
-    border-radius: 10%;
+    opacity: 0.9;
 }
+.btn-submit:hover {
+    opacity: 1;
+}
+
 .btn-red {
     background-color: tomato;
     color: rgb(255, 255, 255);
@@ -106,6 +139,7 @@ footer {
     background-color: rgb(113, 202, 125);
     color: rgb(255, 255, 255);
 }
+
 .btn-submit:hover {
     opacity: 1;
 }
