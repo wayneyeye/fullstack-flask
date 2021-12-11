@@ -25,6 +25,11 @@ def courses(term="Spring 2019"):
 def register():
     return render_template("register.html",register=True)
 
+@app.route("/workflows")
+def workflows():
+    return render_template("workflows.html",workflows=True)
+
+
 @app.route("/confirm",methods=["POST","GET"])
 def confirm():
     args=request.form
