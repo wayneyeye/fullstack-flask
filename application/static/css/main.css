@@ -3,11 +3,11 @@
 :root {
     --header-height: 3rem;
     --nav-width: 68px;
-    --first-color: #4723D9;
+    --first-color: #17213f;
     --first-color-light: #AFA5D9;
-    --white-color: #F7F6FB;
+    --white-color: #f0eff7;
     --body-font: 'Nunito', sans-serif;
-    --normal-font-size: 1rem;
+    --normal-font-size: 0.8rem;
     --z-fixed: 100
 }
 
@@ -110,8 +110,8 @@ a {
 .nav_link {
     position: relative;
     color: var(--first-color-light);
-    margin-bottom: 1.5rem;
-    transition: .3s
+    margin-bottom: 0.5rem;
+    transition: .1s
 }
 
 .nav_link:hover {
@@ -127,7 +127,7 @@ a {
 }
 
 .body-pd {
-    padding-left: calc(var(--nav-width) + 1rem)
+    padding-left: calc(var(--nav-width) + 0.5rem)
 }
 
 .active {
@@ -150,7 +150,7 @@ a {
 @media screen and (min-width: 768px) {
     body {
         margin: calc(var(--header-height) + 1rem) 0 0 0;
-        padding-left: calc(var(--nav-width) + 2rem)
+        padding-left: calc(var(--nav-width) + 1rem)
     }
 
     .header {
@@ -182,10 +182,10 @@ a {
 }
 
 .bottom-container {
-    background: #333;
-    color: white;
+    background: var(--first-color);
+    color: var(--white-color);
     padding:5px;
-    border-top:2px solid #0f0f0f;
+    border-top:2px solid var(--first-color);
     bottom:0;
     height: 80px;
     position: sticky; 

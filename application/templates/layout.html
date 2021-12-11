@@ -55,10 +55,8 @@ linkColor.forEach(l=> l.addEventListener('click', colorLink))
     {% include "includes/nav.html" %}
     <!--Container Main start-->
     <div class="height-100 bg-light">    
-        <div class="container">
-            {% block content %}
-            {% endblock %}
-        </div>
+        {% block content %}
+        {% endblock %}
         {% include "includes/footer.html" %}
     </div>
 </body>
