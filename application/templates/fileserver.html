@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-    
+
 {% block content %}
 <h3>File Browser</h3>
 <!--  Display the Term and Year here --->
@@ -8,59 +8,61 @@
 <div>
     <table class="table table-hover">
         <thead>
-        <tr>
-            <th scope="col">Filename</th>
-            <th scope="col">Last Modified</th>
-            <th scope="col">Size(in Bytes)</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-        </tr>
+            <tr>
+                <th scope="col">Filename</th>
+                <th scope="col">Last Modified</th>
+                <th scope="col">Size(in Bytes)</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
         </thead>
         <tbody>
 
-        <!-- Construct the rest of courses here -->
-        {% for data in fileData %}
-        <tr>
-            {% if data['dir'] %}
-            <td scope='row'><a href="{{ url_for(request.endpoint) }}/{{ path }}{{ data['linkname'] }}" >{{ data['displayname'] }}</a></td>
-            {% else %}
-            <td scope='row'>{{ data['displayname'] }}</td>
-            {% endif %}
-            <td>{{ data['mtime'] }}</td>
-            <td>{{ data['size'] }}</td>
-            {% if not data['dir'] %}
-            <td>
-                <form method="post" >
-                    <input type="hidden" name="download" value="{{ data['linkname'] }}">
-                    <button class='btn-submit btn-blue'>Download</button>
-                </form>
+            <!-- Construct the rest of courses here -->
+            {% for data in fileData %}
+            <tr>
+                {% if data['dir'] %}
+                <td scope='row'><a href="{{ url_for(request.endpoint) }}/{{ path }}{{ data['linkname'] }}">{{
+                        data['displayname'] }}</a></td>
+                {% else %}
+                <td scope='row'>{{ data['displayname'] }}</td>
+                {% endif %}
+                <td>{{ data['mtime'] }}</td>
+                <td>{{ data['size'] }}</td>
+                {% if not data['dir'] %}
+                <td>
+                    <form method="post">
+                        <input type="hidden" name="download" value="{{ data['linkname'] }}">
+                        <button class='btn-submit btn-blue'>Download</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="post" action="{{ url_for('confirm') }}">
+                        <input type="hidden" name="confirm_message" value="Please confirm the deletion of">
+                        <input type="hidden" name="sub_message" value="{{ data['displayname'] }}">
+                        <input type="hidden" name="callback_url" value="{{ url_for(request.endpoint) }}">
+                        <input type="hidden" name="delete" value="{{ data['linkname'] }}">
+                        <button class='btn-submit btn-red'>Delete</button>
+                    </form>
+                </td>
+                {% else %}
+                <td>
+                </td>
+                <td>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+            <td></td>
+            <td>{% for mesg in get_flashed_messages() %}
+                <h6 style="color: tomato;">{{ mesg }}</h6>
+                {% endfor %}
             </td>
-            <td>
-                <form method="post" action="{{ url_for('confirm') }}">
-                    <input type="hidden" name="confirm_message" value="Please confirm the deletion of">
-                    <input type="hidden" name="sub_message" value="{{ data['displayname'] }}">
-                    <input type="hidden" name="callback_url" value="{{ url_for(request.endpoint) }}">
-                    <input type="hidden" name="delete" value="{{ data['linkname'] }}">
-                    <button class='btn-submit btn-red'>Delete</button>
-                </form>
-            </td>
-            {% else %}
-            <td>
-            </td>
-            <td>
-            </td>
-            {% endif %}
-        </tr>
-        {% endfor %}
-        <td></td>
-        <td>{% for mesg in get_flashed_messages() %}
-            <h6 style="color: tomato;">{{ mesg }}</h6>
-            {% endfor %}</td>
-        <form method="post" enctype=multipart/form-data>
-            <td><input type="file" name="upload"></td>
-            <td><input class="btn-submit btn-green" type=submit value="Upload"></td>
-        </form>
-        <td></td>
+            <form method="post" enctype=multipart/form-data>
+                <td><input type="file" name="upload"></td>
+                <td><input class="btn-submit btn-green" type=submit value="Upload"></td>
+            </form>
+            <td></td>
         </tbody>
     </table>
 </div>

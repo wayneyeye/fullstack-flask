@@ -14,3 +14,20 @@
     text-align: center;
     height: auto;
 }
+.square-container {
+    width: 8rem;
+    height: 8rem;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 1rem;
+    text-align: center;
+    background-color: var(--first-icon-color);
+    color: var(--white-color)
+}
+.link-text {
+    color: var(--first-color)
+}
+.link-icon{
+    width: 5rem;
+    height: 5rem;
+}

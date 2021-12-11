@@ -27,7 +27,9 @@ def register():
 
 @app.route("/workflows")
 def workflows():
-    return render_template("workflows.html",workflows=True)
+    return render_template("workflows.html",workflows=True,data=[
+        {'title':'Airflow-Preprod','link':'https://dw-clsfd.com/airflow-preprod'},
+        {'title':'Airflow-Testing','link':'https://dw-clsfd.com/airflow-testing'}])
 
 
 @app.route("/confirm",methods=["POST","GET"])
