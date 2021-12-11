@@ -4,8 +4,8 @@
     {% for d in data %}
     <div class="p-3 square-container">
         <a href="{{ d['link'] }}">
-            <img src="/static/images/airflow.png" class="link-icon link-text">
-            <p>{{ d['title'] }}</p>
+            <img src="/static/images/airflow.png" class="link-icon">
+            <p class="link-text">{{ d['title'] }}</p>
         </a>
     </div>
     {% endfor %}

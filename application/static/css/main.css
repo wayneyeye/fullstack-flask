@@ -25,7 +25,8 @@
     color: var(--white-color)
 }
 .link-text {
-    color: var(--first-color)
+    color: var(--first-color);
+    margin-top: 0.5rem;
 }
 .link-icon{
     width: 5rem;
