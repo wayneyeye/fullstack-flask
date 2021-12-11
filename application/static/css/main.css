@@ -72,7 +72,7 @@ a {
     height: 100vh;
     background-color: var(--first-color);
     padding: .5rem 1rem 0 0;
-    transition: .5s;
+    transition: 0.3s;
     z-index: var(--z-fixed)
 }
 
@@ -177,7 +177,7 @@ a {
     }
 
     .body-pd {
-        padding-left: calc(var(--nav-width) + 188px)
+        padding-left: calc(var(--nav-width) + 162px)
     }
 }
 
@@ -187,10 +187,10 @@ a {
     padding:5px;
     border-top:2px solid var(--first-color);
     bottom:0;
-    height: 80px;
+    height: 40px;
     position: sticky; 
     margin-top: 50px;
-    top: calc( 100vh - 80px );
+    top: calc( 100vh - 40px );
 }
 
 
