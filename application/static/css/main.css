@@ -14,21 +14,32 @@
     text-align: center;
     height: auto;
 }
+
+hr{
+    color:var(--first-color);
+    background-color: var(--first-color);
+}
 .square-container {
+    position: relative;
     width: 8rem;
     height: 8rem;
-    padding: 1rem;
     margin: 1rem;
     border-radius: 1rem;
     text-align: center;
     background-color: var(--first-icon-color);
     color: var(--white-color)
 }
+.square-container:hover {
+    text-align: center;
+    background-color: var(--first-icon-color-hover);
+}
 .link-text {
     color: var(--first-color);
-    margin-top: 0.5rem;
+    position: absolute;
+    bottom: -0.5rem;
 }
 .link-icon{
-    width: 5rem;
-    height: 5rem;
+    max-width: 5rem;
+    align-items: center;
+    margin-bottom: auto;
 }

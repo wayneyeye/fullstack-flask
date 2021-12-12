@@ -6,6 +6,7 @@
     --first-color: #17213f;
     --first-color-light: #d0cae2;
     --first-icon-color: #ddd8d8;
+    --first-icon-color-hover: #c4bfbf;
     --white-color: #f0eff7;
     --body-font: 'Nunito', sans-serif;
     --normal-font-size: 0.8rem;
@@ -24,7 +25,7 @@ body {
     padding: 0 1rem;
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
-    transition: .5s
+    transition: .2s
 }
 
 a {
@@ -145,6 +146,7 @@ a {
 }
 
 .height-100 {
+    padding-top: 2rem;
     height: 100vh
 }
 
