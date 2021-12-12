@@ -2,7 +2,7 @@
 
 :root {
     --header-height: 3rem;
-    --nav-width: 68px;
+    --nav-width: 70px;
     --first-color: #17213f;
     --first-color-light: #d0cae2;
     --first-icon-color: #ddd8d8;
@@ -42,13 +42,13 @@ a {
     align-items: center;
     justify-content: space-between;
     padding: 0 1rem;
-    background-color: var(--white-color);
+    background-color: var(--first-color);
     z-index: var(--z-fixed);
-    transition: .5s
+    transition: .2s
 }
 
 .header_toggle {
-    color: var(--first-color);
+    color: var(--white-color);
     font-size: 1.5rem;
     cursor: pointer
 }
@@ -74,7 +74,7 @@ a {
     height: 100vh;
     background-color: var(--first-color);
     padding: .5rem 1rem 0 0;
-    transition: 0.3s;
+    transition: 0.2s;
     z-index: var(--z-fixed)
 }
 

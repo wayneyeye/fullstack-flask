@@ -1,6 +1,6 @@
 .bottom-container {
-    background: var(--first-color);
-    color: var(--white-color);
+    background: var(--white-color);
+    color: var(--first-color);
     padding:5px;
     border-top:2px solid var(--first-color);
     bottom:0;
@@ -16,10 +16,14 @@
 }
 
 hr{
+    margin-top: 3rem;
     color:var(--first-color);
     background-color: var(--first-color);
 }
 .square-container {
+    display:flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
     width: 8rem;
     height: 8rem;
@@ -30,7 +34,6 @@ hr{
     color: var(--white-color)
 }
 .square-container:hover {
-    text-align: center;
     background-color: var(--first-icon-color-hover);
 }
 .link-text {
@@ -39,7 +42,10 @@ hr{
     bottom: -0.5rem;
 }
 .link-icon{
+    margin: auto;
+    position: relative;
+    top:-0.4rem;
+}
+img.link-icon{
     max-width: 5rem;
-    align-items: center;
-    margin-bottom: auto;
 }

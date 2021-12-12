@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
+<h2>Applications</h2>
 {% for k in data.keys() %}
 <hr>
 <h3>{{ k }}</h3>
@@ -7,7 +8,9 @@
     {% for d in data[k] %}
     <a href="{{ d['link'] }}">
         <div class="p-3 square-container">
-            <img src="{{ d['image'] }}" class="link-icon">
+            <div class="link-icon">
+                <img src="{{ d['image'] }}" class="link-icon">
+            </div>
             <div class="link-text">
                 <p>{{ d['title'] }}</p>
             </div>
