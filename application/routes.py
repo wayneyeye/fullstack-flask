@@ -35,29 +35,29 @@ def courses(term="Spring 2019"):
 def register():
     return render_template("register.html",register=True)
 
-@app.route("/workflows")
-def workflows():
-    return render_template("workflows.html",workflows=True,data=iconData)
+# @app.route("/workflows")
+# def workflows():
+#     return render_template("workflows.html",workflows=True,data=iconData)
 
-@app.route("/batch")
-def batch():
-    return render_template("workflows.html",batch=True,data=iconData)
+# @app.route("/batch")
+# def batch():
+#     return render_template("workflows.html",batch=True,data=iconData)
 
-@app.route("/knowledge")
-def knowledge():
-    return render_template("workflows.html",knowledge=True,data=iconData)
+# @app.route("/knowledge")
+# def knowledge():
+#     return render_template("workflows.html",knowledge=True,data=iconData)
 
-@app.route("/source")
-def source():
-    return render_template("workflows.html",source=True,data=iconData)
+# @app.route("/source")
+# def source():
+#     return render_template("workflows.html",source=True,data=iconData)
 
-@app.route("/monitor")
-def monitor():
-    return render_template("workflows.html",monitor=True,data=iconData)
+# @app.route("/monitor")
+# def monitor():
+#     return render_template("workflows.html",monitor=True,data=iconData)
 
-@app.route("/migration")
-def migration():
-    return render_template("workflows.html",migration=True,data=iconData)
+# @app.route("/migration")
+# def migration():
+#     return render_template("workflows.html",migration=True,data=iconData)
 
 @app.route("/confirm",methods=["POST","GET"])
 def confirm():
