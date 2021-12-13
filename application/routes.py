@@ -1,7 +1,7 @@
 import os
 from flask.helpers import send_from_directory, url_for
 from werkzeug.utils import redirect, secure_filename
-from application import app
+from application import app,dynamo
 from application.fileserver import getFolder,allowed_file,ALLOWED_EXTENSIONS, upload_file,delete_file
 from flask import render_template,Response,request,send_from_directory,flash,safe_join
 import json
@@ -34,6 +34,19 @@ def courses(term="Spring 2019"):
 @app.route("/register")
 def register():
     return render_template("register.html",register=True)
+
+
+@app.route("/user")
+def user():
+    dynamo.tables['users'].put_item(Item={
+        'username': 'rdegges',
+        'first_name': 'Randall',
+        'last_name': 'Degges',
+        'email': 'r@rdegges.com',
+    })
+    users=dynamo.tables['users'].scan()['Items']
+    print(users)
+    return render_template("user.html",users=users,user=True)
 
 # @app.route("/workflows")
 # def workflows():
