@@ -6,17 +6,6 @@ from application.fileserver import getFolder,allowed_file,ALLOWED_EXTENSIONS, up
 from flask import render_template,Response,request,send_from_directory,flash,safe_join
 import json
 # all routes are defined here
-courseData = [{"courseID":"1111","title":"PHP 111","description":"Intro to PHP","credits":"3","term":"Fall, Spring"}, {"courseID":"2222","title":"Java 1","description":"Intro to Java Programming","credits":"4","term":"Spring"}, {"courseID":"3333","title":"Adv PHP 201","description":"Advanced PHP Programming","credits":"3","term":"Fall"}, {"courseID":"4444","title":"Angular 1","description":"Intro to Angular","credits":"3","term":"Fall, Spring"}, {"courseID":"5555","title":"Java 2","description":"Advanced Java Programming","credits":"4","term":"Fall"}]
-
-iconData={'Preprod':[
-    {'title':'Airflow-Preprod','link':'https://dw-clsfd.com/airflow-preprod','image':'/static/images/airflow.png'},
-    {'title':'Airflow-Testing','link':'https://dw-clsfd.com/airflow-testing','image':'/static/images/airflow.png'}
-    ],
-    'CICD':[
-    {'title':'Airflow-Preprod','link':'https://dw-clsfd.com/airflow-preprod','image':'/static/images/spark-logo-normal.png'},
-    {'title':'Airflow-Testing','link':'https://dw-clsfd.com/airflow-testing','image':'/static/images/airflow.png'}
-    ],}
-
 @app.route("/")
 @app.route("/index")
 def index():
@@ -29,6 +18,7 @@ def login():
 @app.route("/courses")
 @app.route("/courses/<term>")
 def courses(term="Spring 2019"):
+    courseData=dynamo.tables['courses'].scan()['Items']
     return render_template("courses.html",courses=True,courseData=courseData,term=term)
 
 @app.route("/register")
@@ -38,14 +28,8 @@ def register():
 
 @app.route("/user")
 def user():
-    dynamo.tables['users'].put_item(Item={
-        'username': 'rdegges',
-        'first_name': 'Randall',
-        'last_name': 'Degges',
-        'email': 'r@rdegges.com',
-    })
     users=dynamo.tables['users'].scan()['Items']
-    print(users)
+    # print(users)
     return render_template("user.html",users=users,user=True)
 
 # @app.route("/workflows")

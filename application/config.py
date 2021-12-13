@@ -5,15 +5,15 @@ class Config():
     DYNAMO_TABLES=[
     dict(
          TableName='users',
-         KeySchema=[dict(AttributeName='username', KeyType='HASH')],
-         AttributeDefinitions=[dict(AttributeName='username', AttributeType='S')],
+         KeySchema=[dict(AttributeName='user_id', KeyType='HASH')],
+         AttributeDefinitions=[dict(AttributeName='user_id', AttributeType='N')],
          ProvisionedThroughput=dict(ReadCapacityUnits=5, WriteCapacityUnits=5)
     ), 
-#     dict(
-#          TableName='groups',
-#          KeySchema=[dict(AttributeName='name', KeyType='HASH')],
-#          AttributeDefinitions=[dict(AttributeName='name', AttributeType='S')],
-#          ProvisionedThroughput=dict(ReadCapacityUnits=5, WriteCapacityUnits=5)
-#     )
+    dict(
+         TableName='courses',
+         KeySchema=[dict(AttributeName='courseID', KeyType='HASH')],
+         AttributeDefinitions=[dict(AttributeName='courseID', AttributeType='S')],
+         ProvisionedThroughput=dict(ReadCapacityUnits=5, WriteCapacityUnits=5)
+    )
 ]
     SERVING_FOLDER=os.getcwd()+'/ftp_folder'
