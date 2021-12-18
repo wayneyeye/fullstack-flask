@@ -2,6 +2,7 @@ import os
 from flask.helpers import send_from_directory, url_for
 from werkzeug.utils import redirect, secure_filename
 from application import app,dynamo
+from application.forms import LoginForm, RegisterForm
 from application.fileserver import getFolder,allowed_file,ALLOWED_EXTENSIONS, upload_file,delete_file
 from flask import render_template,Response,request,send_from_directory,flash,safe_join
 import json
@@ -11,9 +12,10 @@ import json
 def index():
     return render_template("index.html",authed=True,index=True)
 
-@app.route("/login")
+@app.route("/login",methods=["GET","POST"])
 def login():
-    return render_template("login.html",login=True)
+    form=LoginForm()
+    return render_template("login.html",login=True,form=form,title="Login")
 
 @app.route("/courses")
 @app.route("/courses/<term>")
