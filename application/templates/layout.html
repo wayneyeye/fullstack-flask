@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>UTA - Home Page</title>
     <link rel="script" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" />
@@ -16,6 +15,15 @@
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
     </header>
     {% include "includes/nav.html" %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for c,m in messages %}
+                <div class="alert alert-{{c}}">
+                    <p>{{ m }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <!--Container Main start-->
     <div class="height-100 bg-light">
         {% block content %}

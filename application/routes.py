@@ -4,7 +4,7 @@ from werkzeug.utils import redirect, secure_filename
 from application import app,dynamo
 from application.forms import LoginForm, RegisterForm
 from application.fileserver import getFolder,allowed_file,ALLOWED_EXTENSIONS, upload_file,delete_file
-from flask import render_template,Response,request,send_from_directory,flash,safe_join
+from flask import render_template,Response,request,flash,send_from_directory,flash,safe_join,redirect
 import json
 # all routes are defined here
 @app.route("/")
@@ -15,6 +15,12 @@ def index():
 @app.route("/login",methods=["GET","POST"])
 def login():
     form=LoginForm()
+    if form.validate_on_submit():
+        if request.form.get("email") == "test@uta.com":
+            flash("You are successfully logged in!",category="success")
+            return redirect(url_for("index"))
+        else:
+            flash("Sorry, something went wrong",category="danger")
     return render_template("login.html",login=True,form=form,title="Login")
 
 @app.route("/courses")
