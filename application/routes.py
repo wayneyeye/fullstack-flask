@@ -15,6 +15,10 @@ def index():
 @app.route("/login",methods=["GET","POST"])
 def login():
     form=LoginForm()
+    form.validate()
+    for error in form.email.errors:
+        print("error")
+        print(error)
     if form.validate_on_submit():
         if request.form.get("email") == "test@uta.com":
             flash("You are successfully logged in!",category="success")
