@@ -4,12 +4,15 @@
                     <a href="#" class="nav_logo"> <i class='bx bx-data nav_logo-icon'></i> <span class="nav_logo-name">My UTA Flask Project</span></a>
                     <div class="nav_list"> 
                         <a href="{{ url_for('index') }}" class="nav_link {% if index %}active{% endif %}"> <i class='bx bx-home nav_icon'></i> <span class="nav_name">Home</span> </a> 
+                        {% if session["email"] %}
                         <a href="{{ url_for('user') }}" class="nav_link {% if user %}active{% endif %}"> <i class='bx bx-user nav_icon'></i> <span 
                             class="nav_name">User</span> </a>
-                        <a href="{{ url_for('register') }}" class="nav_link {% if register %}active{% endif %}"> <i class='bx bx-user-plus nav_icon'></i> <span class="nav_name">Register</span> </a>
-                        <a href="{{ url_for('login') }}" class="nav_link {% if login %}active{% endif %}"> <i class='bx bx-log-in nav_icon'></i> <span class="nav_name">Login</span> </a>
                         <a href="{{ url_for('courses') }}" class="nav_link {% if courses %}active{% endif %}"> <i class='bx bx-spreadsheet nav_icon'></i> <span class="nav_name">Courses</span> </a> 
                         <a href="{{ url_for('fileserver') }}" class="nav_link {% if fileserver %}active{% endif %}"> <i class='bx bx-folder nav_icon'></i> <span class="nav_name">FTP</span> </a>
+                        {% else %}
+                        <a href="{{ url_for('register') }}" class="nav_link {% if register %}active{% endif %}"> <i class='bx bx-user-plus nav_icon'></i> <span class="nav_name">Register</span> </a>
+                        <a href="{{ url_for('login') }}" class="nav_link {% if login %}active{% endif %}"> <i class='bx bx-log-in nav_icon'></i> <span class="nav_name">Login</span> </a>
+                        {% endif %}
                     </div>
                 </div> 
                     <a href="{{ url_for('logout') }}" class="nav_link"> 
