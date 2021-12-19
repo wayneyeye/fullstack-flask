@@ -30,6 +30,7 @@ def login():
         if user and check_password_hash(user[0]['password'],password):
             flash("You are successfully logged in!",category="success")
             session["email"]=email
+            session["first_name"]=user[0]['first_name']
             return redirect(url_for("index"))
         else:
             flash("Sorry, something went wrong",category="danger")
@@ -38,6 +39,8 @@ def login():
 @app.route("/courses")
 @app.route("/courses/<term>")
 def courses(term="Spring 2019"):
+    if not session.get("email"):
+        return redirect(url_for('login'))
     courseData=dynamo.tables['courses'].scan()['Items']
     return render_template("courses.html",courses=True,courseData=courseData,term=term)
 
@@ -50,10 +53,10 @@ def register():
     print("befor validate on submit")
     if form.validate_on_submit():
         email=form.email.data
-        print("email="+email)
-        print("clear text:"+form.password.data)
+        # print("email="+email)
+        # print("clear text:"+form.password.data)
         hashed_password=generate_password_hash(form.password.data)
-        print("hashed:"+hashed_password)
+        # print("hashed:"+hashed_password)
         form.password=hashed_password
         form.save()
         flash("You are successfully registered!",category="success")
@@ -62,6 +65,8 @@ def register():
 
 @app.route("/user")
 def user():
+    if not session.get("email"):
+        return redirect(url_for('login'))
     users=dynamo.tables['users'].scan()['Items']
     # print(users)
     return render_template("user.html",users=users,user=True)
@@ -69,6 +74,7 @@ def user():
 @app.route("/logout")
 def logout():
     session.pop("email")
+    session.pop("first_name")
     flash("You are successfully logged out!",category="success")
     return redirect(url_for('index'))
 
@@ -81,6 +87,8 @@ def confirm():
 @app.route("/fileserver",methods=["GET","POST"], strict_slashes=False)
 @app.route('/fileserver/<path:path>',methods=["GET","POST"])
 def fileserver(path=''):
+    if not session.get("email"):
+        return redirect(url_for('login'))
     path=path
     print("path=",path)
     # download file from FTP
@@ -112,6 +120,8 @@ def fileserver(path=''):
 
 @app.route("/enrollment",methods=["GET","POST"])
 def enrollment():
+    if not session.get("email"):
+        return redirect(url_for('login'))
     courseID=request.form.get("courseID")
     title=request.form.get("title")
     description=request.form.get("description")
