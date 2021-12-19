@@ -25,7 +25,7 @@ def login():
         user=table.query(
         KeyConditionExpression=Key('email').eq(email)
         ).get("Items")
-        if user and check_password_hash(user[0]['password'],generate_password_hash(password)):
+        if user and check_password_hash(user[0]['password'],password):
             flash("You are successfully logged in!",category="success")
             return redirect(url_for("index"))
         else:
@@ -38,9 +38,22 @@ def courses(term="Spring 2019"):
     courseData=dynamo.tables['courses'].scan()['Items']
     return render_template("courses.html",courses=True,courseData=courseData,term=term)
 
-@app.route("/register")
+@app.route("/register",methods=["GET","POST"])
 def register():
-    return render_template("register.html",register=True)
+    form=RegisterForm()
+    # form.validate()
+    print("befor validate on submit")
+    if form.validate_on_submit():
+        email=form.email.data
+        print("email="+email)
+        print("clear text:"+form.password.data)
+        hashed_password=generate_password_hash(form.password.data)
+        print("hashed:"+hashed_password)
+        form.password=hashed_password
+        form.save()
+        flash("You are successfully registered!",category="success")
+        return redirect(url_for('login'))
+    return render_template("register.html",title="New User Registration",form=form,register=True)
 
 @app.route("/user")
 def user():
