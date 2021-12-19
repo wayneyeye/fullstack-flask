@@ -4,7 +4,7 @@ from werkzeug.utils import redirect, secure_filename
 from application import app,dynamo
 from application.forms import LoginForm, RegisterForm
 from application.fileserver import getFolder,allowed_file,ALLOWED_EXTENSIONS, upload_file,delete_file
-from flask import render_template,Response,request,flash,send_from_directory,flash,safe_join,redirect
+from flask import render_template,Response,request,flash,send_from_directory,flash,safe_join,redirect,session
 import json
 from boto3.dynamodb.conditions import Key
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -16,6 +16,8 @@ def index():
 
 @app.route("/login",methods=["GET","POST"])
 def login():
+    if session.get("email"):
+        return redirect(url_for('index'))
     form=LoginForm()
     form.validate()
     if form.validate_on_submit():
@@ -27,6 +29,7 @@ def login():
         ).get("Items")
         if user and check_password_hash(user[0]['password'],password):
             flash("You are successfully logged in!",category="success")
+            session["email"]=email
             return redirect(url_for("index"))
         else:
             flash("Sorry, something went wrong",category="danger")
@@ -40,6 +43,8 @@ def courses(term="Spring 2019"):
 
 @app.route("/register",methods=["GET","POST"])
 def register():
+    if session.get("email"):
+        return redirect(url_for('index'))
     form=RegisterForm()
     # form.validate()
     print("befor validate on submit")
@@ -60,6 +65,12 @@ def user():
     users=dynamo.tables['users'].scan()['Items']
     # print(users)
     return render_template("user.html",users=users,user=True)
+
+@app.route("/logout")
+def logout():
+    session.pop("email")
+    flash("You are successfully logged out!",category="success")
+    return redirect(url_for('index'))
 
 @app.route("/confirm",methods=["POST","GET"])
 def confirm():
