@@ -6,6 +6,7 @@ from application.forms import LoginForm, RegisterForm
 from application.fileserver import getFolder,allowed_file,ALLOWED_EXTENSIONS, upload_file,delete_file
 from flask import render_template,Response,request,flash,send_from_directory,flash,safe_join,redirect
 import json
+from boto3.dynamodb.conditions import Key
 # all routes are defined here
 @app.route("/")
 @app.route("/index")
@@ -16,11 +17,14 @@ def index():
 def login():
     form=LoginForm()
     form.validate()
-    for error in form.email.errors:
-        print("error")
-        print(error)
     if form.validate_on_submit():
-        if request.form.get("email") == "test@uta.com":
+        email=form.email.data
+        password=form.password.data
+        table=dynamo.tables["users"]
+        user=table.query(
+        KeyConditionExpression=Key('email').eq(email)
+        ).get("Items",[None])[0]
+        if user and password == user["password"]:
             flash("You are successfully logged in!",category="success")
             return redirect(url_for("index"))
         else:
