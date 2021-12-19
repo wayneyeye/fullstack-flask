@@ -7,6 +7,7 @@ from application.fileserver import getFolder,allowed_file,ALLOWED_EXTENSIONS, up
 from flask import render_template,Response,request,flash,send_from_directory,flash,safe_join,redirect
 import json
 from boto3.dynamodb.conditions import Key
+from werkzeug.security import generate_password_hash, check_password_hash
 # all routes are defined here
 @app.route("/")
 @app.route("/index")
@@ -23,8 +24,8 @@ def login():
         table=dynamo.tables["users"]
         user=table.query(
         KeyConditionExpression=Key('email').eq(email)
-        ).get("Items",[None])[0]
-        if user and password == user["password"]:
+        ).get("Items")
+        if user and check_password_hash(user[0]['password'],generate_password_hash(password)):
             flash("You are successfully logged in!",category="success")
             return redirect(url_for("index"))
         else:
