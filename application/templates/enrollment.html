@@ -1,12 +1,11 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<h1>Enrollment</h1>
-
 <!--  Display the Term and Year here --->
-<h3>You have enrolled in the course!</h3>
+<h3>{{title}}</h3>
 
 <div>
+    {% if data %}
     <table class="table table-hover">
         <thead>
             <tr>
@@ -18,15 +17,20 @@
             </tr>
         </thead>
         <tbody>
+            {% for d in data %}
             <tr>
-                <td scope='row'>{{ data["courseID"] }}</td>
-                <td>{{ data["title"] }}</td>
-                <td>{{ data["description"] }}</td>
-                <td>{{ data["credits"] }}</td>
-                <td>{{ data["term"] }}</td>
+                <td scope='row'>{{ d["courseID"] }}</td>
+                <td>{{ d["title"] }}</td>
+                <td>{{ d["description"] }}</td>
+                <td>{{ d["credits"] }}</td>
+                <td>{{ d["term"] }}</td>
+            {% endfor %}
             </tr>
         </tbody>
     </table>
+    {% else %}
+    
+    {% endif %}
 </div>
 
 {% endblock %}

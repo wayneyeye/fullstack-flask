@@ -127,13 +127,19 @@ def enrollment():
     description=request.form.get("description")
     credits=request.form.get("credits")
     term=request.form.get("term")
-    return render_template("enrollment.html",enrollment=True,data={
-        "courseID":courseID,
-        "title":title,
-        "description":description,
-        "credits":credits,
-        "term":term
-        })
+    if courseID: # if is a enrollment submit
+        # put data to dynamodb
+        return render_template("enrollment.html",title="You have successfully enrolled in the course!",enrollment=True,data=[{
+            "courseID":courseID,
+            "title":title,
+            "description":description,
+            "credits":credits,
+            "term":term
+            }])
+    else: # if is to query the enrolled courses
+        enrollmentdata=[]
+        title = "Here is a list of your enrolled courses" if enrollmentdata else "You haven't enrolled in any courses"
+        return render_template("enrollment.html",title=title,data=enrollmentdata,enrollment=True)
 
 @app.route("/api")
 @app.route("/api/<idx>")
