@@ -138,6 +138,7 @@ def enrollment():
 @app.route("/api")
 @app.route("/api/<idx>")
 def api(idx=None):
+    courseData=dynamo.tables['courses'].scan()['Items']
     if idx is None:
         jdata=courseData
     else:

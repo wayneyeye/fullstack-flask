@@ -7,7 +7,8 @@
                         {% if session["email"] %}
                         <a href="{{ url_for('user') }}" class="nav_link {% if user %}active{% endif %}"> <i class='bx bx-user nav_icon'></i> <span 
                             class="nav_name">User</span> </a>
-                        <a href="{{ url_for('courses') }}" class="nav_link {% if courses %}active{% endif %}"> <i class='bx bx-spreadsheet nav_icon'></i> <span class="nav_name">Courses</span> </a> 
+                        <a href="{{ url_for('courses') }}" class="nav_link {% if courses %}active{% endif %}"> <i class='bx bx-book-open nav_icon'></i> <span class="nav_name">Courses</span> </a> 
+                        <a href="{{ url_for('enrollment') }}" class="nav_link {% if enrollent %}active{% endif %}"> <i class='bx bx-spreadsheet nav_icon'></i> <span class="nav_name">Enrollment</span> </a> 
                         <a href="{{ url_for('fileserver') }}" class="nav_link {% if fileserver %}active{% endif %}"> <i class='bx bx-folder nav_icon'></i> <span class="nav_name">FTP</span> </a>
                         {% else %}
                         <a href="{{ url_for('register') }}" class="nav_link {% if register %}active{% endif %}"> <i class='bx bx-user-plus nav_icon'></i> <span class="nav_name">Register</span> </a>
