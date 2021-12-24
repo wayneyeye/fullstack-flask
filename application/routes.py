@@ -136,7 +136,15 @@ def enrollment():
         form.save()
         return render_template("enrollment.html",title="You have successfully enrolled in the course!",enrollment=True,data=courseData)
     else: # if is to query the enrolled courses
+        courseIDs=dynamo.tables['enrollment'].query(
+        KeyConditionExpression=Key('email').eq(email)
+        )['Items']
+        courseIDs=(list(map(lambda a:a['courseID'],courseIDs)))
         enrollmentdata=[]
+        for id in courseIDs:
+            enrollmentdata=enrollmentdata+dynamo.tables['courses'].query(
+            KeyConditionExpression=Key('courseID').eq(id)
+            )['Items']
         title = "Here is a list of your enrolled courses" if enrollmentdata else "You haven't enrolled in any courses"
         return render_template("enrollment.html",title=title,data=enrollmentdata,enrollment=True)
 
