@@ -26,6 +26,7 @@ class RegisterForm(FlaskForm):
             "password": self.password,
         })
     
+    # validate_<field name>
     def validate_email(self,email):
         print("Run validate email!")
         table=dynamo.tables['users']
