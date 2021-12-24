@@ -23,6 +23,9 @@ class EnrollmentForm(FlaskForm):
     
 class RegisterForm(FlaskForm):
     email = StringField("Email",validators=[DataRequired()])
+    first_name = StringField("First Name",validators=[DataRequired()])
+    last_name = StringField("Last Name",validators=[DataRequired()])
+    password = PasswordField("Password",validators=[DataRequired(),Length(min=6,max=15)])
     password_confirm = PasswordField("Password Confirm",validators=[DataRequired(),EqualTo('password')])
     submit=SubmitField("Register Now")
     def save(self):
