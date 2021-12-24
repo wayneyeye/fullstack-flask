@@ -1,7 +1,7 @@
 import os
 import json
 from flask.helpers import send_from_directory, url_for
-from flask import render_template,Response,request,flash,send_from_directory,flash,safe_join,redirect,session
+from flask import render_template,Response,request,flash,send_from_directory,safe_join,redirect,session
 from werkzeug.utils import redirect, secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
 from boto3.dynamodb.conditions import Key
@@ -89,6 +89,7 @@ def enrollment():
         return redirect(url_for('login'))
     form=EnrollmentForm()
     email=session.get("email")
+    form.email=email
     courseID=form.courseID.data
     if courseID: # if is a enrollment submit
         # get course detail
@@ -97,9 +98,10 @@ def enrollment():
             KeyConditionExpression=Key('courseID').eq(courseID)
             )['Items']
             # update to the backend db
-            form.email=email
             form.save()
-            return render_template("enrollment.html",title="You have successfully enrolled in the course!",enrollment=True,data=courseData)
+            return render_template("enrollment.html",title="Course Info",enrollment=True,data=courseData)
+        else:
+            return redirect(url_for("courses"))
     else: # if is to query the enrolled courses
         # get enrolled courseIDs
         courseIDs=dynamo.tables['enrollment'].query(

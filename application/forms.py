@@ -1,19 +1,36 @@
 from flask_wtf import FlaskForm
-from werkzeug import datastructures
 from wtforms import StringField,PasswordField,SubmitField,BooleanField
 from wtforms.validators import DataRequired, Email, Length, EqualTo,ValidationError
 from application import dynamo
+from flask import flash
 from boto3.dynamodb.conditions import Key
+
+# app=Flask(__name__)
 class LoginForm(FlaskForm):
-    email = StringField("Email",validators=[DataRequired()])
+    email = StringField("Email",validators=[DataRequired(),Email()])
     password = PasswordField("Password",validators=[DataRequired()])
     remember_me=BooleanField("Remember me")
     submit=SubmitField("Login")
 
 class EnrollmentForm(FlaskForm):
-    email=None
+    email=None # placeholder to get from session
     courseID = StringField("CourseID",validators=[DataRequired()])
     submit=SubmitField("Enroll")
+    def validate_courseID(self,courseID):
+        print("Run validate courseID!")
+        table=dynamo.tables['enrollment']
+        # email get from session
+        enrollment=table.query(
+        KeyConditionExpression=Key('email').eq(self.email)
+        ).get("Items")
+        print(list(map(lambda a:a.get("courseID"),enrollment)))
+        if courseID.data in list(map(lambda a:a.get("courseID"),enrollment)):
+            flash("Course already registered",category="danger")
+            raise ValidationError("Course already registered")
+        else:
+            flash("You have successfully enrolled",category="success")
+            return True
+
     def save(self):
         table=dynamo.tables['enrollment']
         table.put_item(Item={
