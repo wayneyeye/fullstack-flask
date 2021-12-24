@@ -30,12 +30,13 @@
                 <td>{{ data["term"] }}</td>
                 <td>
                     <form action="{{ url_for('enrollment') }}" method="POST">
+                        {{ form.hidden_tag() }}
                         <input type='hidden' name='courseID' value="{{ data['courseID'] }}">
                         <input type="hidden" name='title' value="{{ data['title'] }}">
                         <input type="hidden" name='description' value="{{ data['description'] }}">
                         <input type="hidden" name='credits' value="{{ data['credits'] }}">
                         <input type="hidden" name='term' value="{{ data['term'] }}">
-                        <button class='btn-submit btn-blue'>Enroll</button>
+                        {{ form.submit() }}
                     </form>
                 </td>
             </tr>

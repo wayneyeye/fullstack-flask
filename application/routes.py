@@ -2,7 +2,7 @@ import os
 from flask.helpers import send_from_directory, url_for
 from werkzeug.utils import redirect, secure_filename
 from application import app,dynamo
-from application.forms import LoginForm, RegisterForm
+from application.forms import LoginForm, RegisterForm,EnrollmentForm
 from application.fileserver import getFolder,allowed_file,ALLOWED_EXTENSIONS, upload_file,delete_file
 from flask import render_template,Response,request,flash,send_from_directory,flash,safe_join,redirect,session
 import json
@@ -41,8 +41,9 @@ def login():
 def courses(term="Spring 2019"):
     if not session.get("email"):
         return redirect(url_for('login'))
+    form=EnrollmentForm()
     courseData=dynamo.tables['courses'].scan()['Items']
-    return render_template("courses.html",courses=True,courseData=courseData,term=term)
+    return render_template("courses.html",courses=True,form=form,courseData=courseData,term=term)
 
 @app.route("/register",methods=["GET","POST"])
 def register():
@@ -50,7 +51,7 @@ def register():
         return redirect(url_for('index'))
     form=RegisterForm()
     # form.validate()
-    print("befor validate on submit")
+    print("before validate on submit")
     if form.validate_on_submit():
         email=form.email.data
         # print("email="+email)
@@ -122,20 +123,18 @@ def fileserver(path=''):
 def enrollment():
     if not session.get("email"):
         return redirect(url_for('login'))
-    courseID=request.form.get("courseID")
-    title=request.form.get("title")
-    description=request.form.get("description")
-    credits=request.form.get("credits")
-    term=request.form.get("term")
+    form=EnrollmentForm()
+    email=session.get("email")
+    courseID=form.courseID.data
     if courseID: # if is a enrollment submit
-        # put data to dynamodb
-        return render_template("enrollment.html",title="You have successfully enrolled in the course!",enrollment=True,data=[{
-            "courseID":courseID,
-            "title":title,
-            "description":description,
-            "credits":credits,
-            "term":term
-            }])
+        # get course detail
+        courseData=dynamo.tables['courses'].query(
+        KeyConditionExpression=Key('courseID').eq(courseID)
+        )['Items']
+        # update to the backend db
+        form.email=email
+        form.save()
+        return render_template("enrollment.html",title="You have successfully enrolled in the course!",enrollment=True,data=courseData)
     else: # if is to query the enrolled courses
         enrollmentdata=[]
         title = "Here is a list of your enrolled courses" if enrollmentdata else "You haven't enrolled in any courses"

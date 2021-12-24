@@ -15,6 +15,12 @@ class Config():
          KeySchema=[dict(AttributeName='courseID', KeyType='HASH')],
          AttributeDefinitions=[dict(AttributeName='courseID', AttributeType='S')],
          ProvisionedThroughput=dict(ReadCapacityUnits=5, WriteCapacityUnits=5)
+    ), 
+    dict(
+         TableName='enrollment',
+         KeySchema=[dict(AttributeName='email', KeyType='HASH'),dict(AttributeName='courseID', KeyType='RANGE')],
+         AttributeDefinitions=[dict(AttributeName='email', AttributeType='S'),dict(AttributeName='courseID', AttributeType='S')],
+         ProvisionedThroughput=dict(ReadCapacityUnits=5, WriteCapacityUnits=5)
     )
 ]
     SERVING_FOLDER=os.getcwd()+'/ftp_folder'

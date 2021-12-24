@@ -10,11 +10,19 @@ class LoginForm(FlaskForm):
     remember_me=BooleanField("Remember me")
     submit=SubmitField("Login")
 
+class EnrollmentForm(FlaskForm):
+    email=None
+    courseID = StringField("CourseID",validators=[DataRequired()])
+    submit=SubmitField("Enroll")
+    def save(self):
+        table=dynamo.tables['enrollment']
+        table.put_item(Item={
+            "email": self.email, # get from session
+            "courseID": self.courseID.data,
+        })
+    
 class RegisterForm(FlaskForm):
     email = StringField("Email",validators=[DataRequired()])
-    first_name = StringField("First Name",validators=[DataRequired()])
-    last_name = StringField("Last Name",validators=[DataRequired()])
-    password = PasswordField("Password",validators=[DataRequired(),Length(min=6,max=15)])
     password_confirm = PasswordField("Password Confirm",validators=[DataRequired(),EqualTo('password')])
     submit=SubmitField("Register Now")
     def save(self):
