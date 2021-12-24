@@ -83,7 +83,6 @@ def confirm():
     print(args)
     return render_template("confirm.html",data=args)
 
-
 @app.route("/enrollment",methods=["GET","POST"])
 def enrollment():
     if not session.get("email"):
