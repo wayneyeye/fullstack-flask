@@ -22,8 +22,14 @@ class GetAndPost(Resource):
         return jsonify(data)
 
 @api.route("/api/<idx>")
-class GetAndPost(Resource):
+class GetPutandDelete(Resource):
     def get(self,idx):
+        courseData=dynamo.tables['courses'].query(
+            KeyConditionExpression=Key('courseID').eq(idx))['Items']
+        return jsonify(courseData)
+    def put(self,idx):
+        data=api.payload
+        dynamo.tables['courses'].put_item(Item=data)
         courseData=dynamo.tables['courses'].query(
             KeyConditionExpression=Key('courseID').eq(idx))['Items']
         return jsonify(courseData)
