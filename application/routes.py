@@ -33,6 +33,12 @@ class GetPutandDelete(Resource):
         courseData=dynamo.tables['courses'].query(
             KeyConditionExpression=Key('courseID').eq(idx))['Items']
         return jsonify(courseData)
+    def delete(self,idx):
+        data=api.payload
+        dynamo.tables['courses'].delete_item(Key={
+                'courseID': data['courseID'],
+            })
+        return jsonify("Course "+idx+' is deleted')
 
 
 # all nonapi routes are defined here
