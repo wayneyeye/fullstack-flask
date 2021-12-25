@@ -1,15 +1,26 @@
 import os
 import json
 from flask.helpers import send_from_directory, url_for
-from flask import render_template,Response,request,flash,send_from_directory,safe_join,redirect,session
+from flask import render_template, Response,request,flash,send_from_directory,safe_join,redirect,session,jsonify
 from werkzeug.utils import redirect, secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
 from boto3.dynamodb.conditions import Key
-from application import app,dynamo
+from application import app,dynamo,api
 from application.forms import LoginForm, RegisterForm,EnrollmentForm
 from application.fileserver import getFolder,allowed_file,ALLOWED_EXTENSIONS, upload_file,delete_file
+from flask_restx import Resource,Api
 
-# all routes are defined here
+# all api routes are defined here
+@api.route("/api","/api/")
+class GetAndPost(Resource):
+    def get(self):
+        courseData=dynamo.tables['courses'].scan()['Items']
+        return jsonify(courseData)
+
+# @api.route("/api/<idx>")
+
+
+# all nonapi routes are defined here
 @app.route("/")
 @app.route("/index")
 def index():
@@ -117,16 +128,6 @@ def enrollment():
         # render title based on existence of results
         title = "Here is a list of your enrolled courses" if enrollmentdata else "You haven't enrolled in any courses"
         return render_template("enrollment.html",title=title,data=enrollmentdata,enrollment=True)
-
-@app.route("/api")
-@app.route("/api/<idx>")
-def api(idx=None):
-    courseData=dynamo.tables['courses'].scan()['Items']
-    if idx is None:
-        jdata=courseData
-    else:
-        jdata=courseData[int(idx)]
-    return Response(json.dumps(jdata),mimetype="application/json")
 
 @app.route("/fileserver",methods=["GET","POST"], strict_slashes=False)
 @app.route('/fileserver/<path:path>',methods=["GET","POST"])
